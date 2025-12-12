@@ -51,7 +51,7 @@ export default function Dashboard() {
   }, []);
 
   return (
-    <div className="min-h-screen w-full bg-gradient-to-br from-gray-900 via-black to-gray-800 text-white pt-24 pb-32 px-4 sm:px-6">
+    <div className="min-h-screen w-full bg-linear-to-br from-gray-900 via-black to-gray-800 text-white pt-24 pb-32 px-4 sm:px-6">
 
       {/* Header */}
       <div className="
@@ -71,7 +71,7 @@ export default function Dashboard() {
           className="
             w-full sm:w-auto 
             px-5 py-2.5 
-            bg-gradient-to-r from-indigo-500 to-purple-600 
+            bg-linear-to-r from-indigo-500 to-purple-600 
             text-white font-medium rounded-xl 
             shadow-lg shadow-purple-800/30
             hover:opacity-90 transition
@@ -140,7 +140,7 @@ export default function Dashboard() {
                   onClick={createCommunity}
                   className="
                     px-4 py-2 rounded-xl 
-                    bg-gradient-to-r from-purple-500 to-indigo-500 
+                    bg-linear-to-r from-purple-500 to-indigo-500 
                     text-white shadow-md hover:opacity-90 transition
                   "
                 >

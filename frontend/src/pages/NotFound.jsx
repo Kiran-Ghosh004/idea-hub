@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 
 export default function NotFound() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-800 flex items-center justify-center px-6 text-white">
+    <div className="min-h-screen bg-linear-to-br from-gray-900 via-black to-gray-800 flex items-center justify-center px-6 text-white">
 
       <motion.div
         initial={{ opacity: 0, y: 20 }}
@@ -19,7 +19,7 @@ export default function NotFound() {
           initial={{ scale: 0.8 }}
           animate={{ scale: 1 }}
           transition={{ duration: 0.4 }}
-          className="text-7xl font-extrabold mb-4 bg-gradient-to-r from-indigo-400 to-purple-500 text-transparent bg-clip-text"
+          className="text-7xl font-extrabold mb-4 bg-linear-to-r from-indigo-400 to-purple-500 text-transparent bg-clip-text"
         >
           404
         </motion.h1>
@@ -39,7 +39,7 @@ export default function NotFound() {
             to="/"
             className="
               px-6 py-2.5 rounded-xl 
-              bg-gradient-to-r from-indigo-500 to-purple-600 
+              bg-linear-to-r from-indigo-500 to-purple-600 
               text-white font-medium shadow-lg hover:opacity-90 transition
             "
           >

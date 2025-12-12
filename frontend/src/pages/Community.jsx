@@ -118,7 +118,7 @@ export default function Community() {
   }, [communityId]);
 
   return (
-    <div className="min-h-screen w-full bg-gradient-to-br from-gray-900 via-black to-gray-800 text-white pt-24 pb-32 px-6">
+    <div className="min-h-screen w-full bg-linear-to-br from-gray-900 via-black to-gray-800 text-white pt-24 pb-32 px-6">
 
       {/* ----------------------- DELETE COMMUNITY MODAL ----------------------- */}
       {showDeleteCommunity && (
@@ -229,7 +229,7 @@ export default function Community() {
             whileHover={{ scale: 1.03 }}
             whileTap={{ scale: 0.95 }}
             onClick={createPost}
-            className="px-6 py-2.5 bg-gradient-to-r from-indigo-500 to-purple-600 text-white font-semibold rounded-xl shadow-lg w-fit"
+            className="px-6 py-2.5 bg-linear-to-r from-indigo-500 to-purple-600 text-white font-semibold rounded-xl shadow-lg w-fit"
           >
             ➕ Post
           </motion.button>

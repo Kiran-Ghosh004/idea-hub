@@ -27,7 +27,7 @@ export default function CreateCommunity() {
   };
 
   return (
-    <div className="min-h-screen w-full bg-gradient-to-br from-gray-900 via-black to-gray-800 text-white flex justify-center items-center px-6">
+    <div className="min-h-screen w-full bg-linear-to-br from-gray-900 via-black to-gray-800 text-white flex justify-center items-center px-6">
 
       <motion.div
         initial={{ opacity: 0, y: 20 }}
@@ -74,7 +74,7 @@ export default function CreateCommunity() {
             onClick={createCommunity}
             className="
               w-full py-3 text-white font-semibold rounded-xl 
-              bg-gradient-to-r from-indigo-500 to-purple-600 
+              bg-linear-to-r from-indigo-500 to-purple-600 
               shadow-lg hover:opacity-90 transition
             "
           >

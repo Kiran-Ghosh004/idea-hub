@@ -81,7 +81,7 @@ export default function SinglePost() {
     post.content.length > 250 ? post.content.slice(0, 250) + "..." : post.content;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-800 text-white pt-24 pb-40 px-6 flex flex-col items-center">
+    <div className="min-h-screen bg-linear-to-br from-gray-900 via-black to-gray-800 text-white pt-24 pb-40 px-6 flex flex-col items-center">
 
       {/* ------------------------ EDIT MODAL ------------------------ */}
       {showEdit && (
