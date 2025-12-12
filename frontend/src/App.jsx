@@ -8,6 +8,8 @@ import SinglePost from "./pages/SinglePost";
 import Navbar from "./components/Navbar";
 import CreateCommunity from "./pages/CreateCommunity";
 import ProtectedRoute from "./components/ProtectedRoute";
+import NotFound from "./pages/NotFound";
+
 
 export default function App() {
   return (
@@ -57,6 +59,8 @@ export default function App() {
             </ProtectedRoute>
           }
         />
+        <Route path="*" element={<NotFound />} />
+
       </Routes>
     </>
   );

@@ -1,98 +1,146 @@
 import { Link, useNavigate } from "react-router-dom";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
+import { useState } from "react";
 
 export default function Navbar() {
   const navigate = useNavigate();
-
   const token = localStorage.getItem("token");
-  const username = localStorage.getItem("userName");
+
+  const [open, setOpen] = useState(false);
 
   const logout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("userId");
     localStorage.removeItem("userName");
-
     navigate("/login");
+    setOpen(false);
   };
 
   return (
-    <div className="w-full bg-white shadow-md py-3 px-6 sticky top-0 z-50">
-      <div className="max-w-6xl mx-auto flex justify-between items-center">
+    <>
+      {/* NAVBAR */}
+      <motion.nav
+        initial={{ y: -20, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.35 }}
+        className="
+          fixed top-0 left-0 w-full z-50
+          bg-black/40 backdrop-blur-xl
+          border-b border-white/10
+          px-6 py-3
+        "
+      >
+        <div className="max-w-7xl mx-auto flex justify-between items-center">
 
-        {/* Logo */}
-        <Link to="/" className="flex items-center gap-2">
-          <h1 className="text-2xl font-bold text-primary">
-            Idea<span className="text-black">Hub</span>
-          </h1>
-        </Link>
-
-        {/* Navigation Items */}
-        <div className="flex items-center gap-6">
-
-          {/* Always visible */}
+          {/* Logo */}
           <Link
             to="/"
-            className="text-gray-700 hover:text-primary font-medium"
+            className="text-white font-bold text-2xl tracking-tight"
           >
-            Communities
+            Idea<span className="text-indigo-400">Hub</span>
           </Link>
 
-          {/* Only when logged in */}
-          {token && (
-            <>
-              <Link
-                to="/dashboard"
-                className="text-gray-700 hover:text-primary font-medium"
-              >
-                Dashboard
-              </Link>
+          {/* Desktop Navigation */}
+          <div className="hidden md:flex items-center gap-6">
+            <Link className="nav-item" to="/">Communities</Link>
 
-              <Link
-                to="/create-community"
-                className="text-gray-700 hover:text-primary font-medium"
-              >
-                Create Community
-              </Link>
+            {token && (
+              <>
+                <Link className="nav-item" to="/dashboard">Dashboard</Link>
+                <Link className="nav-item" to="/create-community">Create</Link>
 
-              {/* User badge */}
-              <div className="flex items-center gap-2 text-gray-700">
-                <div className="w-8 h-8 bg-primary text-white rounded-full flex items-center justify-center font-semibold">
-                  {username ? username[0].toUpperCase() : "U"}
-                </div>
-                <span className="font-medium hidden sm:block">{username}</span>
-              </div>
+                <motion.button
+                  whileTap={{ scale: 0.92 }}
+                  onClick={logout}
+                  className="text-red-400 hover:text-red-300 text-sm font-medium"
+                >
+                  Logout
+                </motion.button>
+              </>
+            )}
 
-              {/* Logout */}
-              <motion.button
-                whileTap={{ scale: 0.95 }}
-                onClick={logout}
-                className="text-red-500 font-medium hover:underline"
-              >
-                Logout
-              </motion.button>
-            </>
-          )}
+            {!token && (
+              <>
+                <Link className="nav-item" to="/login">Login</Link>
+                <Link className="text-indigo-400 hover:text-indigo-300 font-medium text-sm" to="/signup">
+                  Signup
+                </Link>
+              </>
+            )}
+          </div>
 
-          {/* If NOT logged in */}
-          {!token && (
-            <>
-              <Link
-                to="/login"
-                className="text-gray-700 hover:text-primary font-medium"
-              >
-                Login
-              </Link>
-              <Link
-                to="/signup"
-                className="text-primary font-medium hover:underline"
-              >
-                Signup
-              </Link>
-            </>
-          )}
-
+          {/* Mobile Menu Toggle */}
+          <button
+            onClick={() => setOpen(!open)}
+            className="md:hidden text-white text-2xl"
+          >
+            {open ? "✕" : "☰"}
+          </button>
         </div>
-      </div>
-    </div>
+
+        {/* Local Styles */}
+        <style>{`
+          .nav-item {
+            color: #e5e7eb;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: 0.25s ease;
+          }
+          .nav-item:hover {
+            color: white;
+          }
+        `}</style>
+      </motion.nav>
+
+      {/* MOBILE MENU - DROPDOWN */}
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            initial={{ opacity: 0, y: -15 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -15 }}
+            transition={{ duration: 0.25 }}
+            className="
+              md:hidden fixed top-16 left-0 w-full 
+              bg-black/50 backdrop-blur-xl 
+              border-b border-white/10
+              py-4 px-6 z-40
+            "
+          >
+            <div className="flex flex-col gap-4 text-white text-lg">
+
+              <Link to="/" onClick={() => setOpen(false)}>Communities</Link>
+
+              {token && (
+                <>
+                  <Link to="/dashboard" onClick={() => setOpen(false)}>Dashboard</Link>
+                  <Link to="/create-community" onClick={() => setOpen(false)}>Create</Link>
+
+                  <button
+                    onClick={logout}
+                    className="text-red-400 text-left"
+                  >
+                    Logout
+                  </button>
+                </>
+              )}
+
+              {!token && (
+                <>
+                  <Link to="/login" onClick={() => setOpen(false)}>Login</Link>
+                  <Link
+                    to="/signup"
+                    onClick={() => setOpen(false)}
+                    className="text-indigo-400"
+                  >
+                    Signup
+                  </Link>
+                </>
+              )}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </>
   );
 }

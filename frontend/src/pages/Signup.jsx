@@ -21,16 +21,9 @@ export default function Signup() {
     e.preventDefault();
 
     try {
-      const res = await axios.post(
-        "http://localhost:5000/auth/signup",
-        form
-      );
-
+      const res = await axios.post("http://localhost:5000/auth/signup", form);
       const { token } = res.data;
-
-      // Save JWT
       localStorage.setItem("token", token);
-
       navigate("/dashboard");
     } catch (err) {
       alert(err.response?.data?.message || "Signup failed");
@@ -38,54 +31,100 @@ export default function Signup() {
   };
 
   return (
-    <div className="flex justify-center mt-12 px-4">
+    <div className="min-h-screen w-full flex justify-center items-center bg-linear-to-br from-gray-900 via-black to-gray-800 px-4">
       <motion.div
-        initial={{ opacity: 0, y: 15 }}
+        initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.35 }}
-        className="w-full max-w-md bg-white p-8 rounded-xl shadow-lg"
+        transition={{ duration: 0.5 }}
+        className="
+          w-full max-w-md p-8 mt-4
+          rounded-2xl shadow-2xl
+          bg-white/10 backdrop-blur-xl
+          border border-white/20
+        "
       >
-        <h1 className="text-2xl font-bold mb-6">Create your account</h1>
+        <h1 className="text-3xl font-semibold mb-4 text-center text-white">
+          Create an Account ✨
+        </h1>
 
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <Input
-            label="Name"
-            name="name"
-            type="text"
-            value={form.name}
-            onChange={handleChange}
-            placeholder="Your name"
-          />
+        <p className="text-gray-300 text-center mb-8 text-sm">
+          Join <span className="font-semibold text-white">IdeaHub</span> and start sharing your ideas!
+        </p>
 
-          <Input
-            label="Email"
-            name="email"
-            type="email"
-            value={form.email}
-            onChange={handleChange}
-            placeholder="example@mail.com"
-          />
+        <form onSubmit={handleSubmit} className="space-y-5">
 
-          <Input
-            label="Password"
-            name="password"
-            type="password"
-            value={form.password}
-            onChange={handleChange}
-            placeholder="At least 6 characters"
-          />
+          {/* Name */}
+          <div>
+            <label className="text-gray-200 text-sm font-medium">Name</label>
+            <input
+              type="text"
+              name="name"
+              value={form.name}
+              onChange={handleChange}
+              placeholder="Your full name"
+              className="
+                w-full mt-1 px-4 py-2
+                bg-white/10 text-white placeholder-gray-400
+                rounded-xl border border-white/20
+                focus:outline-none focus:border-indigo-400
+              "
+            />
+          </div>
+
+          {/* Email */}
+          <div>
+            <label className="text-gray-200 text-sm font-medium">Email</label>
+            <input
+              type="email"
+              name="email"
+              value={form.email}
+              onChange={handleChange}
+              placeholder="example@mail.com"
+              className="
+                w-full mt-1 px-4 py-2
+                bg-white/10 text-white placeholder-gray-400
+                rounded-xl border border-white/20
+                focus:outline-none focus:border-indigo-400
+              "
+            />
+          </div>
+
+          {/* Password */}
+          <div>
+            <label className="text-gray-200 text-sm font-medium">Password</label>
+            <input
+              type="password"
+              name="password"
+              value={form.password}
+              onChange={handleChange}
+              placeholder="At least 6 characters"
+              className="
+                w-full mt-1 px-4 py-2
+                bg-white/10 text-white placeholder-gray-400
+                rounded-xl border border-white/20
+                focus:outline-none focus:border-indigo-400
+              "
+            />
+          </div>
 
           <motion.button
-            whileTap={{ scale: 0.96 }}
-            className="w-full mt-2 bg-primary text-white py-2 rounded-lg font-medium shadow hover:opacity-90"
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.95 }}
+            className="
+              w-full py-3 
+              rounded-xl font-semibold 
+              bg-linear-to-r from-purple-600 to-indigo-500
+              text-white shadow-lg shadow-indigo-800/30 
+              hover:opacity-90 transition
+            "
           >
             Sign Up
           </motion.button>
         </form>
 
-        <p className="text-sm text-center mt-4 text-gray-600">
+        <p className="text-sm text-center mt-6 text-gray-300">
           Already have an account?{" "}
-          <a href="/login" className="text-primary hover:underline">
+          <a href="/login" className="text-indigo-400 hover:underline">
             Login
           </a>
         </p>

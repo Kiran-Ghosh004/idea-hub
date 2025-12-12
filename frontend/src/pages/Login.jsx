@@ -20,35 +20,40 @@ export default function Login() {
     e.preventDefault();
 
     try {
-      const res = await axios.post(
-        "http://localhost:5000/auth/login",
-        form
-      );
+      const res = await axios.post("http://localhost:5000/auth/login", form);
 
       const { token, user } = res.data;
 
-      // Save JWT and userId
       localStorage.setItem("token", token);
       localStorage.setItem("userId", user._id);
 
-      navigate("/dashboard");
-
+      navigate("/");
     } catch (err) {
       alert(err.response?.data?.message || "Login failed");
     }
   };
 
   return (
-    <div className="flex justify-center mt-12 px-4">
+    <div className="min-h-screen w-full flex justify-center items-center bg-linear-to-br from-gray-900 via-black to-gray-800 px-4 text-gray-300">
       <motion.div
-        initial={{ opacity: 0, y: 15 }}
+        initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.35 }}
-        className="w-full max-w-md bg-white p-8 rounded-xl shadow-lg"
+        transition={{ duration: 0.5 }}
+        className="
+          w-full max-w-md p-8 
+          rounded-2xl shadow-2xl 
+          bg-white/10 backdrop-blur-xl 
+          border border-white/20
+        "
       >
-        <h1 className="text-2xl font-bold mb-6">Login to your account</h1>
+        <h1 className="text-3xl font-semibold mb-6 text-white text-center">
+          Welcome Back 👋
+        </h1>
+        <p className="text-gray-300 text-center mb-8 text-sm">
+          Login to continue to <span className="font-semibold text-white">IdeaHub</span>
+        </p>
 
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form onSubmit={handleSubmit} className="space-y-5">
           <Input
             label="Email"
             name="email"
@@ -56,6 +61,7 @@ export default function Login() {
             value={form.email}
             onChange={handleChange}
             placeholder="example@mail.com"
+            className="text-white"
           />
 
           <Input
@@ -68,16 +74,23 @@ export default function Login() {
           />
 
           <motion.button
-            whileTap={{ scale: 0.96 }}
-            className="w-full mt-2 bg-primary text-white py-2 rounded-lg font-medium shadow hover:opacity-90"
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.95 }}
+            className="
+              w-full py-3 
+              rounded-xl font-semibold 
+              bg-linear-to-r from-indigo-500 to-purple-600 
+              text-white shadow-lg shadow-purple-800/30 
+              hover:opacity-90 transition
+            "
           >
             Login
           </motion.button>
         </form>
 
-        <p className="text-sm text-center mt-4 text-gray-600">
+        <p className="text-sm text-center mt-6 text-gray-300">
           Don't have an account?{" "}
-          <a href="/signup" className="text-primary hover:underline">
+          <a href="/signup" className="text-indigo-400 hover:underline">
             Sign Up
           </a>
         </p>
