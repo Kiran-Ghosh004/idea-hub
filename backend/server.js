@@ -1,5 +1,6 @@
 import express from 'express';
 import dotenv from 'dotenv';
+import cors from 'cors';
 import { connectDB } from './db.js';
 
 import authRoutes from './routes/authRoutes.js';
@@ -10,14 +11,21 @@ dotenv.config();
 connectDB();
 
 const app = express();
+
+// Enable CORS for frontend
+app.use(cors({
+  origin: "http://localhost:5173",
+  credentials: true
+}));
+
 app.use(express.json());
 
-// attach routes
+// Routes
 app.use('/auth', authRoutes);
 app.use('/communities', communityRoutes);
 app.use('/posts', postRoutes);
 
-// test route
+// Test route
 app.get('/', (req, res) => {
   res.send('Backend is running with routes!');
 });
